@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Navigator · Control Centre</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0E0E1A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Law Nav">
+    <link rel="apple-touch-icon" href="icon-192.svg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0E0E1A;
+            --ink-soft: #3A3A4A;
+            --ink-faint: #6B6B7B;
+            --page: #F9F8F5;
+            --rule: #E2DDD6;
+            --gold: #C9A84C;
+            --crim: #3A7FD4;
+            --civ: #2EAD6E;
+            --study: #1AADAD;
+            --more: #8A4FD4;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--page);
+            padding-bottom: 80px;
+        }
+
+        .site-header {
+            background: var(--ink);
+            padding: 28px 20px 22px;
+        }
+
+        .site-header .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .header-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-icon {
+            flex-shrink: 0;
+        }
+
+        .header-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #F9F8F5;
+            line-height: 1.2;
+        }
+
+        .header-text .meta {
+            font-size: 13px;
+            color: #7A8090;
+            margin-top: 5px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin: 28px 0 10px;
+        }
+
+        .tool-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
+            background: #fff;
+            border: 1px solid var(--rule);
+            border-left: 4px solid transparent;
+            border-radius: 0 4px 4px 0;
+            margin-bottom: 8px;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .tool-card.live:hover {
+            background: #FAFAF8;
+        }
+
+        .tool-card.soon {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .icon-wrap {
+            width: 34px;
+            height: 34px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-wrap svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .card-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--ink-faint);
+            margin-top: 2px;
+            letter-spacing: 0.03em;
+        }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.10em;
+            padding: 3px 7px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .badge-live {
+            background: var(--ink);
+            color: #F9F8F5;
+        }
+
+        .badge-next {
+            background: #0F6E56;
+            color: #E1F5EE;
+        }
+
+        .badge-soon {
+            background: var(--rule);
+            color: var(--ink-faint);
+        }
+
+        .badge-tbc {
+            background: #3A2850;
+            color: #D4B8F0;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: var(--rule);
+            margin: 8px 0 20px;
+        }
+
+        .site-footer {
+            margin-top: 56px;
+            padding: 20px;
+            border-top: 1px solid var(--rule);
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--ink-faint);
+            letter-spacing: 0.08em;
+            line-height: 1.8;
+        }
+
+        @media(max-width:420px) {
+            .header-text h1 {
+                font-size: 19px;
+            }
+
+            .card-title {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="eyebrow">Pakistan Law · Digital Reference Suite</div>
+        <div class="header-identity">
+            <div class="header-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 80 80">
+                    <rect width="80" height="80" rx="14" fill="#1A1A2E" />
+                    <rect x="14" y="14" width="52" height="8" rx="2" fill="#C9A84C" />
+                    <polygon points="18,22 62,22 57,30 23,30" fill="#B8903C" />
+                    <polygon points="22,30 58,30 61,64 19,64" fill="#C9A84C" />
+                    <line x1="29" y1="30" x2="26" y2="64" stroke="#1A1A2E" stroke-width="2.5" opacity="0.4" />
+                    <line x1="35" y1="30" x2="33" y2="64" stroke="#1A1A2E" stroke-width="2.5" opacity="0.4" />
+                    <line x1="40" y1="30" x2="40" y2="64" stroke="#1A1A2E" stroke-width="2.5" opacity="0.4" />
+                    <line x1="45" y1="30" x2="47" y2="64" stroke="#1A1A2E" stroke-width="2.5" opacity="0.4" />
+                    <line x1="51" y1="30" x2="54" y2="64" stroke="#1A1A2E" stroke-width="2.5" opacity="0.4" />
+                    <rect x="17" y="64" width="46" height="6" rx="1" fill="#B8903C" />
+                    <rect x="13" y="70" width="54" height="6" rx="1" fill="#9A6E28" />
+                </svg>
+            </div>
+            <div class="header-text">
+                <h1>Law Navigator<br>Control Centre</h1>
+                <div class="meta">Khokhar · Bar Council Prep · Punjab University LLB</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="section-label">Criminal Law</div>
+
+        <a class="tool-card live" href="https://waddacoder.github.io/ppc-navigator/"
+            style="border-left-color:var(--crim);">
+            <div class="icon-wrap" style="background:#EEF4FC;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3A7FD4" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                        d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">PPC Navigator</div>
+                <div class="card-sub">S.1–511 · Decision trees · Offence elements · Exceptions</div>
+            </div>
+            <span class="badge badge-live">LIVE</span>
+        </a>
+
+        <a class="tool-card live" href="https://waddacoder.github.io/ppc-bare-act/"
+            style="border-left-color:var(--crim);">
+            <div class="icon-wrap" style="background:#EEF4FC;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3A7FD4" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">PPC Bare Act</div>
+                <div class="card-sub">Complete statute · S.1–511 · All 23 chapters · Verbatim</div>
+            </div>
+            <span class="badge badge-live">LIVE</span>
+        </a>
+
+        <a class="tool-card live" href="https://waddacoder.github.io/ppc-case-library/"
+            style="border-left-color:var(--crim);">
+            <div class="icon-wrap" style="background:#EEF4FC;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3A7FD4" stroke-width="2">
+                    <path d="M3 21h18M5 21V7l7-4 7 4v14" />
+                    <path d="M9 21v-4h6v4" />
+                    <path d="M9 10h.01M15 10h.01M9 14h.01M15 14h.01" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">PPC Case Library</div>
+                <div class="card-sub">Landmark cases · Section-wise · Pakistan courts</div>
+            </div>
+            <span class="badge badge-live">LIVE</span>
+        </a>
+
+        <a class="tool-card live" href="https://waddacoder.github.io/CrPC-Navigator/"
+            style="border-left-color:var(--crim);">
+            <div class="icon-wrap" style="background:#EEF4FC;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3A7FD4" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">CrPC Navigator</div>
+                <div class="card-sub">Procedure · Arrest · Bail · Trial · Appeals</div>
+            </div>
+            <span class="badge badge-live">LIVE</span>
+        </a>
+
+        <div class="section-label">Civil Law</div>
+
+        <a class="tool-card soon" style="border-left-color:var(--civ);">
+            <div class="icon-wrap" style="background:#E8F8F0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2EAD6E" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">QSO Navigator</div>
+                <div class="card-sub">Qanun-e-Shahadat · Evidence · Admissibility · Witnesses</div>
+            </div>
+            <span class="badge badge-soon">COMING</span>
+        </a>
+
+        <a class="tool-card soon" style="border-left-color:var(--civ);">
+            <div class="icon-wrap" style="background:#E8F8F0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2EAD6E" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <path d="M8 21h8M12 17v4" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">CPC Navigator</div>
+                <div class="card-sub">Civil Procedure · Suits · Decrees · Execution</div>
+            </div>
+            <span class="badge badge-soon">COMING</span>
+        </a>
+
+        <div class="section-label">Study Tools</div>
+
+        <a class="tool-card live" href="https://waddacoder.github.io/llb-sem2-notes/"
+            style="border-left-color:var(--study);">
+            <div class="icon-wrap" style="background:#E1F5EE;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2">
+                    <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">LLB Sem II Study Dashboard</div>
+                <div class="card-sub">QR-II · Criminal Law · Torts · Env. Law · Sociology · Writing</div>
+            </div>
+            <span class="badge badge-live">LIVE</span>
+        </a>
+
+        <div class="section-divider"></div>
+
+        <div class="tool-card soon" style="border-left-color:var(--more);">
+            <div class="icon-wrap" style="background:#F3EEF9;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#8A4FD4" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+            </div>
+            <div class="card-info">
+                <div class="card-title">More apps coming</div>
+                <div class="card-sub">Torts · Environmental Law · Sociology · LLB Sem III</div>
+            </div>
+            <span class="badge badge-tbc">TBC</span>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        waddacoder.github.io/law-tools · Pakistan Law Digital Suite · 2026
+    </footer>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/law-tools/sw.js').catch(() => { });
+        }
+    </script>
+
+</body>
+
+</html>
