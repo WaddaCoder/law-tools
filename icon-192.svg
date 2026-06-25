@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <!-- Background -->
+  <rect width="192" height="192" rx="38" fill="#0E0E1A"/>
+  <!-- Scales of justice motif, centred in safe zone (38px padding each side = 116px working area, centred at 96,96) -->
+  <!-- Beam top bar -->
+  <rect x="54" y="58" width="84" height="11" rx="3" fill="#C9A84C"/>
+  <!-- Beam trapezoid shadow -->
+  <polygon points="59,69 133,69 127,79 65,79" fill="#B8903C"/>
+  <!-- Scales body (trapezoid, widens downward) -->
+  <polygon points="66,79 126,79 130,128 62,128" fill="#C9A84C"/>
+  <!-- Vertical ridges on scales body -->
+  <line x1="79" y1="79" x2="75" y2="128" stroke="#0E0E1A" stroke-width="3" opacity="0.35"/>
+  <line x1="89" y1="79" x2="87" y2="128" stroke="#0E0E1A" stroke-width="3" opacity="0.35"/>
+  <line x1="96" y1="79" x2="96" y2="128" stroke="#0E0E1A" stroke-width="3" opacity="0.35"/>
+  <line x1="103" y1="79" x2="105" y2="128" stroke="#0E0E1A" stroke-width="3" opacity="0.35"/>
+  <line x1="113" y1="79" x2="117" y2="128" stroke="#0E0E1A" stroke-width="3" opacity="0.35"/>
+  <!-- Base ledge -->
+  <rect x="59" y="128" width="74" height="9" rx="2" fill="#B8903C"/>
+  <!-- Plinth -->
+  <rect x="52" y="137" width="88" height="10" rx="2" fill="#9A6E28"/>
+</svg>
